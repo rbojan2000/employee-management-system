@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+  <a class="navbar-brand" href="#">Accommodation Booking</a>
+  <a style="margin-left: 24px;" class="nav-item nav-link" [routerLink]="['/registerEngineer']" routerLinkActive="active" *ngIf="isLoggedIn">Register engineer</a>
+ 
+  <div class="nav-right">
+   
+    <a class="nav-item nav-link" [routerLink]="['/']" routerLinkActive="active" *ngIf="isLoggedIn"
+      (click)="logout()">Logout</a>
+    <a class="nav-item nav-link" [routerLink]="['/login']" routerLinkActive="active" *ngIf="!isLoggedIn">Login</a>
+    <a class="nav-item nav-link" [routerLink]="['/register']" routerLinkActive="active" *ngIf="!isLoggedIn">Register</a>
+  </div>
+</nav>
