@@ -19,6 +19,7 @@ export class NavbarComponent {
       this.isLoggedIn = false;
       this.role = this.authService.getUserRole();
     });
+
     this.authService.onLogin.subscribe(() => {
       this.isLoggedIn = true;
       this.role = this.authService.getUserRole();
