@@ -1,7 +1,7 @@
 package employee.management.system.service.implementations;
 
 import employee.management.system.model.User;
-import employee.management.system.model.dto.UserDTO;
+import employee.management.system.dto.UserDTO;
 import employee.management.system.repository.UserRepository;
 import employee.management.system.service.interfaces.RoleService;
 import employee.management.system.service.interfaces.UserService;
@@ -17,25 +17,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    RoleService roleService;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public User registerUser(User user, UserDTO userDTO) {
-        return null;
+    public boolean checkIfEmailExists(String email) {
+        if(userRepository.findByEmail(email) == null)
+            return false;
+        return true;
     }
 
 
@@ -48,6 +36,4 @@ public class UserServiceImpl implements UserService {
         // Convert the salt bytes to a hexadecimal string representation
         return Hex.encodeHexString(saltBytes);
     }
-
-
 }

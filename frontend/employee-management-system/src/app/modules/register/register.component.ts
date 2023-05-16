@@ -17,6 +17,7 @@ export class RegisterComponent {
     surname: '',
     email: '',
     password: '',
+    re_password: '',
     address: null,
   };
 
@@ -40,7 +41,20 @@ export class RegisterComponent {
         street: this.street,
       }
       this.user.address = address; 
-      this.userService.register(this.user)      
+      this.user.re_password = this.rePassword;
+      this.userService.register(this.user).subscribe(
+        (res) => {
+          this.toastr.success('Success registration!', 'Success');
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          if (error.status === 409) {
+            this.toastr.error('Email exists!')    
+          } else {
+            this.toastr.error('Wrong data');
+          }
+        }
+      );
     }
   }
 

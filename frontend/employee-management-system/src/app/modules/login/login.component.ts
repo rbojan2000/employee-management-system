@@ -15,6 +15,7 @@ export class LoginComponent {
     id: null,
     name: '',
     surname: '',
+    re_password: '',
     email: '',
     password: '',
     address: null

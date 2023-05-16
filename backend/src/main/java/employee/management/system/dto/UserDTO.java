@@ -1,10 +1,7 @@
-package employee.management.system.model.dto;
+package employee.management.system.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import employee.management.system.model.AccountType;
 import employee.management.system.model.Address;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

@@ -1,11 +1,14 @@
 package employee.management.system.controller;
 
 import employee.management.system.model.User;
+import employee.management.system.dto.UserDTO;
+import employee.management.system.service.interfaces.SoftwareEngineerService;
 import employee.management.system.util.TokenUtils;
 import employee.management.system.dto.JwtAuthenticationRequest;
 import employee.management.system.dto.UserTokenState;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +30,8 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private SoftwareEngineerService softwareEngineerService;
 
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
@@ -44,4 +49,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO registrationRequest) {
+        // Validate the registration request
+        User user = softwareEngineerService.registerEngineer(registrationRequest);
+        if(user != null)
+            return ResponseEntity.ok("");
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
+    }
 }
+

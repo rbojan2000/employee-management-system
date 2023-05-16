@@ -10,14 +10,9 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class SoftwareEngineer extends User {
-    @Column
-    private LocalDate employmentDate;
 
-    @Column
-    private String verificationCode;
 }

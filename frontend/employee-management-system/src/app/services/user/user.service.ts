@@ -16,8 +16,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   register(newUser: User): Observable<any> {
-    console.log(JSON.stringify(newUser))
-    return this.http.post<User>(this.apiHost + 'register', newUser, {
+    
+    return this.http.post<User>(this.apiHost + 'register', JSON.stringify(newUser), {
       headers: this.headers,
     });
   }
