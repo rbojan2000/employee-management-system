@@ -7,6 +7,7 @@ import employee.management.system.repository.SoftwareEngineerRepository;
 import employee.management.system.service.interfaces.RoleService;
 import employee.management.system.service.interfaces.SoftwareEngineerService;
 import employee.management.system.service.interfaces.UserService;
+import employee.management.system.util.SaltGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,18 @@ public class SoftwareEngineerServiceImpl implements SoftwareEngineerService {
         if(userService.checkIfEmailExists(userDTO.getEmail()))
             return null;
 
-        SoftwareEngineer engineer = softwareEngineerMapper.toModel(userDTO);
-        engineer.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        String salt = SaltGenerator.generateSalt(8);
 
+        SoftwareEngineer engineer = softwareEngineerMapper.toModel(userDTO);
+        engineer.setPassword(passwordEncoder.encode(userDTO.getPassword().concat(salt)));
+
+        engineer.setSalt(salt);
         engineer.setEnabled(true);
         engineer.setApproved(true);
 
         engineer.setRoles(roleService.findByName("ROLE_SOFTWARE_ENGINEER"));
         softwareEngineerRepository.save(engineer);
         return engineer;
-
     }
 
     @Override

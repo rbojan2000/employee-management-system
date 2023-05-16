@@ -26,14 +26,11 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
-    private String generateSalt() {
-        // Generate a random salt using a secure random number generator
-        SecureRandom random = new SecureRandom();
-        byte[] saltBytes = new byte[16];
-        random.nextBytes(saltBytes);
-
-        // Convert the salt bytes to a hexadecimal string representation
-        return Hex.encodeHexString(saltBytes);
+    @Override
+    public String getSaltByUserEmail(String email) {
+       User user = userRepository.findByEmail(email);
+       return user.getSalt();
     }
+
+
 }

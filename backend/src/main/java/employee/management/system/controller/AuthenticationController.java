@@ -3,6 +3,7 @@ package employee.management.system.controller;
 import employee.management.system.model.User;
 import employee.management.system.dto.UserDTO;
 import employee.management.system.service.interfaces.SoftwareEngineerService;
+import employee.management.system.service.interfaces.UserService;
 import employee.management.system.util.TokenUtils;
 import employee.management.system.dto.JwtAuthenticationRequest;
 import employee.management.system.dto.UserTokenState;
@@ -31,14 +32,19 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private SoftwareEngineerService softwareEngineerService;
 
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
 
+        String salt = userService.getSaltByUserEmail(authenticationRequest.getUsername());
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+                authenticationRequest.getUsername(), authenticationRequest.getPassword().concat(salt)));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

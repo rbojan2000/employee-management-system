@@ -32,6 +32,8 @@ public class User implements UserDetails {
     private String email;
     @Column
     private String password;
+    @Column
+    private String salt;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
