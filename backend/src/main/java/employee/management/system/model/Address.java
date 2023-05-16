@@ -17,12 +17,10 @@ public class Address {
     private Long id;
 
     @Column
-    private String country;
+    private String state;
     @Column
     private String city;
     @Column
     private String street;
-    @Column
-    private String number;
 
 }

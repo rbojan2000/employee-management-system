@@ -8,6 +8,7 @@
         id="first-name"
         name="first-name"
         required
+        [(ngModel)]="user.name"
       />
     </div>
     <div class="form-column">
@@ -17,6 +18,7 @@
         id="last-name"
         name="last-name"
         required
+        [(ngModel)]="user.surname"
       />
     </div>
   </div>
@@ -28,6 +30,7 @@
         id="street"
         name="street"
         required
+        [(ngModel)]="street"
       />
     </div>
     <div class="form-column">
@@ -37,7 +40,8 @@
         id="city"
         name="city"
         required
-      />
+        [(ngModel)]="city"
+        />
     </div>
     <div class="form-column">
       <label for="state">State:</label>
@@ -46,11 +50,11 @@
         id="state"
         name="state"
         required
+        [(ngModel)]="state"
       />
     </div>
   </div>
   <div class="form-row">
-  
     <div class="form-column">
       <label for="email">Email:</label>
       <input
@@ -58,6 +62,7 @@
         id="email"
         name="email"
         required
+        [(ngModel)]="user.email"
       />
     </div>
   </div>
@@ -69,6 +74,8 @@
         id="password"
         name="password"
         required
+        [(ngModel)]="user.password"
+        (input)="checkPasswordStrength()"
       />
     </div>
     <div class="form-column">
@@ -78,7 +85,24 @@
         id="re-password"
         name="re-password"
         required
+        [(ngModel)]="rePassword"
       />
+    </div>
+  </div>
+  <div class="form-row">
+    <label>Password Strength:</label>
+      
+    <div class="password-strength-meter">
+      <div
+        class="progress-bar"
+        [ngStyle]="{ width: passwordStrength + '%' }"
+        [ngClass]="{
+          'very-weak': passwordStrength < 25,
+          'weak': passwordStrength >= 25 && passwordStrength < 50,
+          'medium': passwordStrength >= 50 && passwordStrength < 75,
+          'strong': passwordStrength >= 75,
+        }"
+      ></div>
     </div>
   </div>
   <button type="submit" (click)="register()">Register</button>

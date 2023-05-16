@@ -17,6 +17,7 @@ export class LoginComponent {
     surname: '',
     email: '',
     password: '',
+    address: null
   };
 
   constructor(

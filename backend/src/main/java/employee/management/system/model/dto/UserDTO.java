@@ -29,10 +29,5 @@ public class UserDTO {
     private String re_password;
     @JsonProperty
     private Address address;
-    @Pattern(regexp = "^(\\+\\s?)?\\d+$")
-    private String phone;
-    @Pattern(regexp = "^[a-zA-Z]+$")
-    private String title;
-    @Enumerated(EnumType.STRING)
-    private AccountType accountType;
+
 }
