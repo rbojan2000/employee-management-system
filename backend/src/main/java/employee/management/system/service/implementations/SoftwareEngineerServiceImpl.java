@@ -45,4 +45,21 @@ public class SoftwareEngineerServiceImpl implements SoftwareEngineerService {
         return engineer;
 
     }
+
+    @Override
+    public SoftwareEngineer getByID(Long id) {
+        return softwareEngineerRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateEngineer(SoftwareEngineer softwareEngineer, Long id) {
+
+        SoftwareEngineer engineer = softwareEngineerRepository.findById(id).get();
+
+        engineer.setAddress(softwareEngineer.getAddress());
+        engineer.setName(softwareEngineer.getName());
+        engineer.setSurname(softwareEngineer.getSurname());
+
+        softwareEngineerRepository.save(engineer);
+    }
 }

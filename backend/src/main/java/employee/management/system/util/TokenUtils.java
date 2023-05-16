@@ -15,7 +15,6 @@ import java.util.Date;
 @Component
 public class TokenUtils {
 
-    private static final String AUDIENCE_WEB = "web";
     @Value("${app.secret}")
     public String SECRET;
     @Value("${app.name}")
@@ -54,7 +53,7 @@ public class TokenUtils {
 
         return null;
     }
-    
+
 
     public String getUsernameFromToken(String token) {
         String username;

@@ -15,15 +15,14 @@ import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
-import { RegisterEngineerComponent } from './modules/register-engineer/register-engineer.component';
-
+import { ProfileComponent } from './modules/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     RegisterComponent,
     LoginComponent,
-    RegisterEngineerComponent,
+    ProfileComponent,
   ],
   imports: [
     MatSlideToggleModule,

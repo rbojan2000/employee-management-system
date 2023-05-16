@@ -19,7 +19,17 @@ public class SoftwareEngineerMapper {
         se.setSurname(userDTO.getSurname());
         se.setEmail(userDTO.getEmail());
         se.setAddress(address);
+        se.setPassword(userDTO.getPassword());
         return se;
     }
 
+    public UserDTO toDTO(SoftwareEngineer softwareEngineer) {
+
+        UserDTO dto = new UserDTO();
+        dto.setName(softwareEngineer.getName());
+        dto.setSurname(softwareEngineer.getSurname());
+        dto.setAddress(softwareEngineer.getAddress());
+        dto.setId(softwareEngineer.getId());
+        return dto;
+    }
 }

@@ -1,0 +1,73 @@
+<form class="register-form" *ngIf="user">
+    <div class="form-row">
+      <div class="form-column">
+        <label for="first-name">First Name:</label>
+        <input
+          type="text"
+          id="first-name"
+          name="first-name"
+          required
+          [(ngModel)]="user.name"
+        />
+      </div>
+      <div class="form-column">
+        <label for="last-name">Last Name:</label>
+        <input
+          type="text"
+          id="last-name"
+          name="last-name"
+          required
+          [(ngModel)]="user.surname"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="street">Street:</label>
+        <input
+          type="text"
+          id="street"
+          name="street"
+          required
+          [(ngModel)]="user.address.street"
+        />
+      </div>
+      <div class="form-column">
+        <label for="city">City:</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          required
+          [(ngModel)]="user.address.city"
+          />
+      </div>
+      <div class="form-column">
+        <label for="state">State:</label>
+        <input
+          type="text"
+          id="state"
+          name="state"
+          required
+          [(ngModel)]="user.address.state"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+        <label for="street">For making changes, enter your password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+        
+          required
+          [(ngModel)]="password"
+        />
+      </div>
+    <br>
+
+    <br>    
+    <button type="submit" (click)="register()">Update profile</button>
+  </form>
+  

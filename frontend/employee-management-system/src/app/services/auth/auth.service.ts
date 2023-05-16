@@ -30,8 +30,11 @@ export class AuthService {
     return jwt.role;
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenAccessKey);
+  getToken(): string {
+    var token = localStorage.getItem(this.tokenAccessKey); 
+    if( token != null)
+      return token;
+    return "" 
   }
 
   removeToken(): void {

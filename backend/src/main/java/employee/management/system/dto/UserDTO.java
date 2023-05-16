@@ -27,4 +27,5 @@ public class UserDTO {
     @JsonProperty
     private Address address;
 
+    private Long Id;
 }

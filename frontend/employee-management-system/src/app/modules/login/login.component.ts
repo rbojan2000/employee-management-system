@@ -30,7 +30,6 @@ export class LoginComponent {
 
   login() {
     this.userService.loginUser(this.user).subscribe((res) => {
-      window.alert(JSON.stringify(res))
         this.authService.setToken(res.accessToken, res.refreshToken);
         this.toastr.success('Logged in!', 'Success');
         this.router.navigate(['/']);

@@ -64,7 +64,7 @@ public class WebSecurityConfig {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
-        http.authorizeRequests().requestMatchers("/auth/**").permitAll()		// /auth/**
+        http.authorizeRequests().requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
