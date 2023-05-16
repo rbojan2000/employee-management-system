@@ -43,15 +43,24 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user);
-        int expiresIn = tokenUtils.getExpiredIn();
 
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        String accesJwt = tokenUtils.generateAccessToken(user);
+        String refreshJwt = tokenUtils.generateRefreshToken(user) ;
+        int refreshTokenExpiresIn = tokenUtils.getRefreshTokenExpiresIn();
+        int accessTokenExpiresIn = tokenUtils.getAccessTokenExpiresIn();
+
+        UserTokenState userTokenState = new UserTokenState();
+        userTokenState.setAccessToken(accesJwt);
+        userTokenState.setRefreshToken(refreshJwt);
+        userTokenState.setAccessTokenexpiresIn(accessTokenExpiresIn);
+        userTokenState.setRefreshTokenexpiresIn(refreshTokenExpiresIn);
+
+        return ResponseEntity.ok(userTokenState);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO registrationRequest) {
-        // Validate the registration request
+
         User user = softwareEngineerService.registerEngineer(registrationRequest);
         if(user != null)
             return ResponseEntity.ok("");

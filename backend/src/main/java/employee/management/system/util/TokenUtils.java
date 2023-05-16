@@ -15,40 +15,33 @@ import java.util.Date;
 @Component
 public class TokenUtils {
 
-    @Value("spring-security-example")
-    private String APP_NAME;
-
-    @Value("somesecret")
+    private static final String AUDIENCE_WEB = "web";
+    @Value("${app.secret}")
     public String SECRET;
-
-    @Value("1800000000")
-    private int EXPIRES_IN;
-
+    @Value("${app.name}")
+    private String APP_NAME;
+    @Value("${app.refreshTokenExpiresIn}")
+    private int REFRESH_TOKEN_EXPIRES_IN;
+    @Value("${app.accessTokenExpiresIn}")
+    private int ACCESS_EXPIRES_IN;
     @Value("Authorization")
     private String AUTH_HEADER;
-
-    private static final String AUDIENCE_WEB = "web";
-
-    private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+    private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
 
-    public String generateToken(User user) {
-        return Jwts.builder()
-                .setIssuer(APP_NAME)
-                .setSubject(user.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(generateExpirationDate())
-                .claim("role", user.getRoles().get(0).getName())
-                .claim("name", user.getName())
-                .claim("surname", user.getSurname())
-                .claim("id", user.getId())
+    public String generateAccessToken(User user) {
+        return Jwts.builder().setIssuer(APP_NAME).setSubject(user.getUsername()).setIssuedAt(new Date()).setExpiration(generateTokenExpirationDate(ACCESS_EXPIRES_IN)).claim("role", user.getRoles().get(0).getName()).claim("name", user.getName()).claim("surname", user.getSurname()).claim("id", user.getId())
 
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 
+    public String generateRefreshToken(User user) {
+        return Jwts.builder().setIssuer(APP_NAME).setSubject(user.getUsername()).setIssuedAt(new Date()).setExpiration(generateTokenExpirationDate(REFRESH_TOKEN_EXPIRES_IN)).signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+    }
 
-    private Date generateExpirationDate() {
-        return new Date(new Date().getTime() + EXPIRES_IN);
+
+    private Date generateTokenExpirationDate(int expiresIn) {
+        return new Date(new Date().getTime() + expiresIn);
     }
 
 
@@ -61,7 +54,7 @@ public class TokenUtils {
 
         return null;
     }
-
+    
 
     public String getUsernameFromToken(String token) {
         String username;
@@ -110,10 +103,7 @@ public class TokenUtils {
     private Claims getAllClaimsFromToken(String token) {
         Claims claims;
         try {
-            claims = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token)
-                    .getBody();
+            claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException ex) {
             throw ex;
         } catch (Exception e) {
@@ -129,27 +119,22 @@ public class TokenUtils {
         final Date created = getIssuedAtDateFromToken(token);
         final Date expiration = getExpirationDateFromToken(token);
 
-        return (username != null
-                && username.equals(((User) userDetails).getEmail())
-                && created != null
-                && expiration != null
-                && created.before(expiration)
-        );
+        return (username != null && username.equals(((User) userDetails).getEmail()) && created != null && expiration != null && created.before(expiration));
     }
-
 
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
 
-
-    public int getExpiredIn() {
-        return EXPIRES_IN;
+    public int getAccessTokenExpiresIn() {
+        return ACCESS_EXPIRES_IN;
     }
 
+    public int getRefreshTokenExpiresIn() {
+        return REFRESH_TOKEN_EXPIRES_IN;
+    }
 
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader(AUTH_HEADER);
     }
-
 }

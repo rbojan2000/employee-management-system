@@ -7,12 +7,16 @@ import jwtDecode from 'jwt-decode';
 export class AuthService {
   constructor() {}
 
-  private readonly tokenKey = 'jwt-token';
+  private readonly tokenAccessKey = 'jwt-access-token';
+  private readonly tokenRefreshKey = 'jwt-refresh-token';
+
   onLogout: EventEmitter<void> = new EventEmitter<void>();
   onLogin: EventEmitter<void> = new EventEmitter<void>();
 
-  setToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+  setToken(accessToken: string, refreshToken: string): void {
+    localStorage.setItem(this.tokenAccessKey, accessToken);
+    localStorage.setItem(this.tokenRefreshKey, refreshToken);
+    
     this.onLogin.emit();
   }
 
@@ -27,11 +31,12 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return localStorage.getItem(this.tokenAccessKey);
   }
 
   removeToken(): void {
-    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.tokenAccessKey);
+    localStorage.removeItem(this.tokenRefreshKey)
     this.onLogout.emit();
   }
 

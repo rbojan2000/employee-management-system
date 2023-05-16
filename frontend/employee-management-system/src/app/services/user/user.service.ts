@@ -23,7 +23,6 @@ export class UserService {
   }
 
   loginUser(user: User): Observable<any> {
-    window.alert(this.apiHost)
     const body = {
       'username': user.email,
       'password': user.password

@@ -30,7 +30,8 @@ export class LoginComponent {
 
   login() {
     this.userService.loginUser(this.user).subscribe((res) => {
-        this.authService.setToken(res.accessToken);
+      window.alert(JSON.stringify(res))
+        this.authService.setToken(res.accessToken, res.refreshToken);
         this.toastr.success('Logged in!', 'Success');
         this.router.navigate(['/']);
       },
@@ -38,7 +39,7 @@ export class LoginComponent {
         if (error.status === 401) {
           this.toastr.error('Invalid credentials')    
         } else {
-          this.toastr.error('An error occurred', 'Error');
+          this.toastr.error('An error occurred');
         }
       }
       );
