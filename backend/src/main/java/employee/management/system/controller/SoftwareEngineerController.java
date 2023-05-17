@@ -39,11 +39,11 @@ public class SoftwareEngineerController {
     @PutMapping
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
     public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
-
+        SoftwareEngineer softwareEngineer  = softwareEngineerService.getByID(userDTO.getId());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                softwareEngineerService.getByID(userDTO.getId()).getUsername(), userDTO.getPassword()));
+                softwareEngineer.getUsername(), userDTO.getPassword().concat(softwareEngineer.getSalt())));
 
-        SoftwareEngineer softwareEngineer = softwareEngineerMapper.toModel(userDTO);
+        softwareEngineer = softwareEngineerMapper.toModel(userDTO);
         softwareEngineerService.updateEngineer(softwareEngineer, userDTO.getId());
         return ResponseEntity.ok().build();
     }

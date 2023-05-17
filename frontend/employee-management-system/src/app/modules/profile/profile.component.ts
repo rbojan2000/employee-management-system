@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
           this.state = this.user.address.state;
           this.city = this.user.address.city;
                 
-          window.alert(JSON.stringify(res))
         }
         
       )

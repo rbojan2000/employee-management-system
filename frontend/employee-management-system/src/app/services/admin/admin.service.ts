@@ -17,7 +17,6 @@ export class AdminService {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   get(): Observable<any[]> {
-    var jwttoken = 'ss'
     return this.http.get<any[]>(this.apiHost + 'getAll', {
       headers: this.headers,
     });
