@@ -17,6 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { ProjectsComponent } from './modules/projects/projects.component';
+import { SkillsComponent } from './modules/skills/skills.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProjectsComponent } from './modules/projects/projects.component';
     LoginComponent,
     ProfileComponent,
     ProjectsComponent,
+    SkillsComponent,
   ],
   imports: [
     MatSlideToggleModule,

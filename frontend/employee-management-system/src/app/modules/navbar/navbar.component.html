@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
   <a class="navbar-brand" href="#">Employee management</a>
   <a style="margin-left: 24px;" class="nav-item nav-link" [routerLink]="['/profile']" routerLinkActive="active" *ngIf="isLoggedIn && role ==='ROLE_SOFTWARE_ENGINEER'">Profile</a>
-  <a style="margin-left: 24px;" class="nav-item nav-link" [routerLink]="['/projects']" routerLinkActive="active" *ngIf="isLoggedIn" >Projects</a>
+  <a style="margin-left: 24px;" class="nav-item nav-link" [routerLink]="['/projects']" routerLinkActive="active" *ngIf="isLoggedIn && role ==='ROLE_SOFTWARE_ENGINEER'" >Projects</a>
+  <a style="margin-left: 24px;" class="nav-item nav-link" [routerLink]="['/skills']" routerLinkActive="active" *ngIf="isLoggedIn && role ==='ROLE_SOFTWARE_ENGINEER'" >Skills</a>
  
   <div class="nav-right">
    
@@ -9,5 +10,6 @@
       (click)="logout()">Logout</a>
     <a class="nav-item nav-link" [routerLink]="['/login']" routerLinkActive="active" *ngIf="!isLoggedIn">Login</a>
     <a class="nav-item nav-link" [routerLink]="['/register']" routerLinkActive="active" *ngIf="!isLoggedIn">Register</a>
+  
   </div>
 </nav>

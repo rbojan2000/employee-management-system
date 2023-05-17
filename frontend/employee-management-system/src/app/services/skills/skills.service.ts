@@ -6,10 +6,9 @@ import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SoftwareEngineerService {
+export class SkillsService {
   
-
-  apiHost: string = 'http://localhost:8080/software-engineer';
+  apiHost: string = 'http://localhost:8080/skill';
   headers: HttpHeaders = new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -18,15 +17,17 @@ export class SoftwareEngineerService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  getByID(id: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiHost + "/"+ id, {
+  getSkillsForUser(id: string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiHost + "/user/"+ id, {
       headers: this.headers,
     });
   }
 
-  update(user: any) {
-    return this.http.put<any[]>(this.apiHost, JSON.stringify(user) , {
+  addNewSkill(newSkill: any) {
+    window.alert(JSON.stringify(newSkill))
+    return this.http.post<any[]>(this.apiHost, JSON.stringify(newSkill) , {
       headers: this.headers,
     });
   }
+
 }

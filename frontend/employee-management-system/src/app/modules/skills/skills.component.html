@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Skills List</h1>
+
+  <div class="list-container">
+    <ul>
+      <li *ngFor="let item of skills">
+        <span>{{ item.name }}</span>
+        <span class="grade">Grade: {{ item.grade }} / 5</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="add-skill-container">
+    <input type="text" [(ngModel)]="newSkill.name" placeholder="Enter a new skill" />
+    <input min="1" max="5" type="number"  [(ngModel)]="newSkill.grade" placeholder="Enter the grade" />
+    <button (click)="addSkill()">Add Skill</button>
+  </div>
+</div>
