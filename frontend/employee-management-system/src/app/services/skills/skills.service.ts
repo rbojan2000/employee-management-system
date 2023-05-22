@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class SkillsService {
   
-  apiHost: string = 'http://localhost:8080/skill';
+  apiHost: string = 'https://localhost:8443/skill';
   headers: HttpHeaders = new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json',

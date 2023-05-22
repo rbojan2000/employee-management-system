@@ -29,10 +29,18 @@ export class LoginComponent {
   ) {}
 
   login() {
+    if(!this.isValidInputs()) {
+      return
+    }
     this.userService.loginUser(this.user).subscribe((res) => {
+
         this.authService.setToken(res.accessToken, res.refreshToken);
         this.toastr.success('Logged in!', 'Success');
-        this.router.navigate(['/']);
+        
+        if(this.authService.getUserRole() === 'ROLE_SOFTWARE_ENGINEER') {
+          this.router.navigate(['/profile']);
+     
+        }
       },
       (error) => {
         if (error.status === 401) {
@@ -43,4 +51,24 @@ export class LoginComponent {
       }
       );
   }
+
+  isValidInputs(): boolean {
+
+    if (
+      !this.user.password ||
+      !this.user.email
+    ) {
+      this.toastr.error('Please fill in all fields');
+      return false;
+    }
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!emailPattern.test(this.user.email)) {
+      this.toastr.error('Please enter a valid email address');
+      return false;
+    }
+    return true;
+  
+  }
+
 }

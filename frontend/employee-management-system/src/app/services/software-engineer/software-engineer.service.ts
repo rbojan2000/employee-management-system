@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
 export class SoftwareEngineerService {
   
 
-  apiHost: string = 'http://localhost:8080/software-engineer';
+  apiHost: string = 'https://localhost:8443/software-engineer';
   headers: HttpHeaders = new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json',

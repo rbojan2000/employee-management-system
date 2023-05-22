@@ -4,7 +4,7 @@ INSERT INTO addresses(city, state, street) VALUES ('Paris', 'France', 'The Champ
 INSERT INTO project(duration, name) VALUES (561, 'Road to victory');
 INSERT INTO project(duration, name) VALUES (272, 'Arizona show');
 
-INSERT INTO users (name, surname, email, password, enabled, approved, address_id, salt) VALUES ('John', 'Doe', 'johndoe@example.com', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', true, true, 1, '');
+INSERT INTO users (name, surname, email, password, enabled, approved, address_id, salt) VALUES ('John', 'Doe', 'johndoe@example.com', '$2a$10$vn/IdVAk9aqVsORMqoBbCeGM8GP1mCDBafb9GiA8KniBXCpwZCSk2', true, true, 1, 'oDWeVcRNFCw=');
 INSERT INTO users (name, surname, email, password, enabled, approved, address_id, salt) VALUES ('Nick', 'Ostodrift', 'nick@mail.com', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', true, true, 2, '');
 
 INSERT INTO role (name) VALUES ('ROLE_ADMIN');

@@ -29,6 +29,6 @@ export class NavbarComponent {
 
   logout(): void {
     this.authService.removeToken();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }

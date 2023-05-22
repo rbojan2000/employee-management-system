@@ -24,10 +24,16 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const userRole = this.authService.getUserRole();
-    const requiredRole = route.data['requiredRole'] as string;
-    if (this.authService.isLoggedIn() && requiredRole === userRole) {
+
+    if(route.url.toString() === 'skills' && userRole==='ROLE_ADMIN') {
+      this.authService.removeToken();
+      this.router.navigate(['/login']);
+    }
+
+    if (this.authService.isLoggedIn()) {
       return true;
     }
+
     this.router.navigate(['/login']);
     return false;
   }

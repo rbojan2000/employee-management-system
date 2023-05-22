@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class AdminService {
 
-  apiHost: string = 'http://localhost:8080/admin/';
+  apiHost: string = 'https://localhost:8443/admin/';
   headers: HttpHeaders = new HttpHeaders({
     'Authorization': 'Bearer ' + this.auth.getToken(),
     'Content-Type': 'application/json',

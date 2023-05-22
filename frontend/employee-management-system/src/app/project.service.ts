@@ -9,7 +9,7 @@ import { AuthService } from './services/auth/auth.service';
 export class ProjectService {
 
 
-  apiHost: string = 'http://localhost:8080/project';
+  apiHost: string = 'https://localhost:8443/project';
   headers: HttpHeaders = new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json',

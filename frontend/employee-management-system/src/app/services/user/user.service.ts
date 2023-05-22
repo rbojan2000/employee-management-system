@@ -7,7 +7,7 @@ import { User } from 'src/app/model/user';
   providedIn: 'root',
 })
 export class UserService {
-  apiHost: string = 'http://localhost:8080/auth/';
+  apiHost: string = 'https://localhost:8443/auth/';
   headers: HttpHeaders = new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json',
