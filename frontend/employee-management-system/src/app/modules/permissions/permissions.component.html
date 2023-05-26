@@ -1,0 +1,28 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>ROLE HUMAN RESOURCES</th>
+        <th>ROLE SOFTWARE ENGINEER</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permission of permissions">
+        <td>{{ permission.description }}</td>
+        <td>
+          <label class="switch">
+            <input  type="checkbox" [checked]="hasRole(permission, 'ROLE_HUMAN_RESOURCES')" (change)="toggleRole(permission, 'ROLE_HUMAN_RESOURCES')">
+            <span class="slider"></span>
+          </label>
+        </td>
+        <td>
+          <label class="switch">
+            <input type="checkbox" [checked]="hasRole(permission, 'ROLE_SOFTWARE_ENGINEER')" (change)="toggleRole(permission, 'ROLE_SOFTWARE_ENGINEER')">
+            <span class="slider"></span>
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

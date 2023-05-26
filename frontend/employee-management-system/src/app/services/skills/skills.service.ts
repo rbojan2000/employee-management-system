@@ -24,7 +24,6 @@ export class SkillsService {
   }
 
   addNewSkill(newSkill: any) {
-    window.alert(JSON.stringify(newSkill))
     return this.http.post<any[]>(this.apiHost, JSON.stringify(newSkill) , {
       headers: this.headers,
     });

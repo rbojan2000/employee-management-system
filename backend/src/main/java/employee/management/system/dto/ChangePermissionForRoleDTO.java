@@ -1,6 +1,7 @@
 package employee.management.system.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtAuthenticationRequest {
+public class ChangePermissionForRoleDTO {
 
     @NotEmpty
-    private String username;
+    @NotNull
+    private String roleName;
 
     @NotEmpty
-    private String password;
+    @NotNull
+    private String permisionId;
 }

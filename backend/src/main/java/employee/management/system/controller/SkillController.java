@@ -19,9 +19,8 @@ public class SkillController {
 
     @GetMapping("/user/{id}")
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<List<Skill>> getByID(@PathVariable("id") Long id) {
-        List<Skill> skills = skillService.getProjectForUser(id);
-
+    public ResponseEntity<List<Skill>> getProjectForUser(@PathVariable("id") Long id) {
+        List<Skill> skills = skillService.getSkillsForUser(id);
         return ResponseEntity.ok(skills);
     }
 
@@ -32,11 +31,7 @@ public class SkillController {
         Skill skill = new Skill();
         skill.setGrade(skillDTO.getGrade());
         skill.setName(skillDTO.getName());
-
         skillService.addNewSkill(skill, skillDTO.getUserId());
-
-
-        return ResponseEntity.ok("skills");
+        return ResponseEntity.ok("");
     }
-
 }

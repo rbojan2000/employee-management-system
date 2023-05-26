@@ -24,7 +24,6 @@ public class Role implements GrantedAuthority {
     @Column(name="name")
     private String name;
 
-
     @JsonIgnore
     @Override
     public String getAuthority() {
@@ -35,6 +34,4 @@ public class Role implements GrantedAuthority {
     public Long getId() {
         return id;
     }
-
-
 }

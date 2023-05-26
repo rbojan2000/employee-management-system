@@ -40,7 +40,10 @@ export class SkillsComponent implements OnInit {
         if (this.skills[existingSkillIndex].grade !== this.newSkill.grade) {
           this.skills.splice(existingSkillIndex, 1);
         } else {
-          return; // Skill with same name and grade already exists, no need to add again
+
+      this.toastr.error('Skill with same name and grade already exists, no need to add again!');
+         
+      return; 
         }
       }
 

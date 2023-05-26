@@ -28,7 +28,7 @@ public class ProjectController {
 
     @GetMapping("/user/{id}")
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<List<EngineerProjectAssignmentDTO>> getByID(@PathVariable("id") Long id) {
+    public ResponseEntity<List<EngineerProjectAssignmentDTO>> getProjectForUser(@PathVariable("id") Long id) {
 
         List<EngineerProjectAssignment> assignmentList = projectService.getProjectForUser(id);
         List<EngineerProjectAssignmentDTO> dtos = projectMapper.listToDTO(assignmentList);
