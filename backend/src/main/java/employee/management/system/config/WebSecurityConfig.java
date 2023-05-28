@@ -27,7 +27,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();

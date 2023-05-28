@@ -1,9 +1,12 @@
-<div class="card-container">
-    <div class="card" *ngFor="let project of projects">
-      <h2>{{ project.projectName }}</h2>
-      <p><strong>Duration:</strong> {{ project.projectDuration }} days</p>
-      <textarea [(ngModel)]="project.description" rows="4" (input)="onDescriptionChange(project)"></textarea>
-      <button *ngIf="project.isDirty" (click)="saveChanges(project)">Save</button>
-  
-    </div>
+<div *ngIf="projects" class="card-container">
+  <div class="card" *ngFor="let project of projects">
+    <h2>{{ project.projectName }}</h2>
+    <p><strong>Duration:</strong> {{ project.projectDuration }} days</p>
+    <textarea
+      [(ngModel)]="project.description"
+      rows="4"
+      (input)="onDescriptionChange(project)"
+    ></textarea>
+    <button *ngIf="project.isDirty" (click)="saveChanges(project)">Save</button>
   </div>
+</div>

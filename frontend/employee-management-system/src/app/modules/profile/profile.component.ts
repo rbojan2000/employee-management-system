@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SoftwareEngineerService } from 'src/app/services/software-engineer/software-engineer.service';
-import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
   public user: any;
@@ -25,25 +23,26 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrService,
     private softwareEngineerService: SoftwareEngineerService,
     private authService: AuthService,
-    private jwtHelper: JwtHelperService,
+    private jwtHelper: JwtHelperService
   ) {}
 
   ngOnInit(): void {
-    var token = this.authService.getToken()
+    var token = this.authService.getToken();
     if (token !== null) {
       var userID = this.jwtHelper.decodeToken(token).id;
-      this.softwareEngineerService.getByID(userID).subscribe((res) =>
-        {
+      this.softwareEngineerService.getByID(userID).subscribe(
+        (res) => {
           this.user = res;
           this.name = this.user.name;
           this.surname = this.user.surname;
           this.street = this.user.address.street;
           this.state = this.user.address.state;
           this.city = this.user.address.city;
-                
+        },
+        (error) => {
+          this.toastr.error(error.error);
         }
-        
-      )
+      );
     }
   }
 
@@ -56,31 +55,31 @@ export class ProfileComponent implements OnInit {
         },
         (error) => {
           if (error.status === 401) {
-            this.toastr.error('Wrong password!')    
+            this.toastr.error('Wrong password!');
           } else {
-            this.toastr.error('Wrong data');
+            this.toastr.error(error.error)
           }
         }
       );
     }
   }
 
-  validateForm(): boolean {     
-
-      if (
-      !this.user.name ||
-      !this.user.surname ||
-      !this.password
-     ) {
+  validateForm(): boolean {
+    if (!this.user.name || !this.user.surname || !this.password) {
       this.toastr.error('Please fill in all fields!');
       return false;
     }
 
-    if(this.user.name === this.name && this.user.surname === this.surname && this.user.address.state === this.state && this.user.address.city === this.city && this.user.address.street === this.street) {
+    if (
+      this.user.name === this.name &&
+      this.user.surname === this.surname &&
+      this.user.address.state === this.state &&
+      this.user.address.city === this.city &&
+      this.user.address.street === this.street
+    ) {
       this.toastr.error('You did not make change!');
       return false;
     }
     return true;
   }
-
 }

@@ -1,5 +1,5 @@
 .container {
-  margin: 20px;
+  margin: 40px;
 }
 
 h1 {
@@ -52,6 +52,12 @@ th, td {
   border-radius: 50%;
   transition: 0.4s;
 }
+
+input.checkbox-input {
+  cursor: pointer;
+}
+
+
 
 input:checked + .slider {
   background-color: #4CAF50;

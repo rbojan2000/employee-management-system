@@ -18,7 +18,7 @@ export class LoginComponent {
     re_password: '',
     email: '',
     password: '',
-    address: null
+    address: null,
   };
 
   constructor(
@@ -29,46 +29,43 @@ export class LoginComponent {
   ) {}
 
   login() {
-    if(!this.isValidInputs()) {
-      return
+    if (!this.isValidInputs()) {
+      return;
     }
-    this.userService.loginUser(this.user).subscribe((res) => {
-
+    this.userService.loginUser(this.user).subscribe(
+      (res) => {
         this.authService.setToken(res.accessToken, res.refreshToken);
         this.toastr.success('Logged in!', 'Success');
-        
-        if(this.authService.getUserRole() === 'ROLE_SOFTWARE_ENGINEER') {
+
+        if (this.authService.getUserRole() === 'ROLE_SOFTWARE_ENGINEER') {
           this.router.navigate(['/profile']);
-     
+        }
+
+        if (this.authService.getUserRole() === 'ROLE_ADMIN') {
+          this.router.navigate(['/permissions']);
         }
       },
       (error) => {
         if (error.status === 401) {
-          this.toastr.error('Invalid credentials')    
+          this.toastr.error('Invalid credentials');
         } else {
           this.toastr.error('An error occurred');
         }
       }
-      );
+    );
   }
 
   isValidInputs(): boolean {
-
-    if (
-      !this.user.password ||
-      !this.user.email
-    ) {
+    if (!this.user.password || !this.user.email) {
       this.toastr.error('Please fill in all fields');
       return false;
     }
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
+
     if (!emailPattern.test(this.user.email)) {
       this.toastr.error('Please enter a valid email address');
       return false;
     }
     return true;
-  
   }
-
 }

@@ -1,11 +1,8 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { JwtHeader } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from 'src/app/project.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-projects',
@@ -17,7 +14,7 @@ export class ProjectsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private jwtHelper: JwtHelperService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
 
   public projects: any[] = [];
@@ -26,9 +23,14 @@ export class ProjectsComponent implements OnInit {
     var token = this.authService.getToken();
     if (token !== null) {
       var userID = this.jwtHelper.decodeToken(token).id;
-      this.projectService.getProjectsForUser(userID).subscribe((res) => {
-        this.projects = res;
-      });
+      this.projectService.getProjectsForUser(userID).subscribe(
+        (res) => {
+          this.projects = res;
+        },
+        (error) => {
+          this.toastr.error(error.error);
+        }
+      );
     }
   }
 
@@ -37,21 +39,20 @@ export class ProjectsComponent implements OnInit {
   }
 
   saveChanges(project: any) {
-    
-    if(project.description=== '') {
-      this.toastr.error('Description can not be blank!') 
-      return 
-      
+    if (project.description === '') {
+      this.toastr.error('Description can not be blank!');
+      return;
     }
 
     project.isDirty = false;
 
-    this.projectService.update(project).subscribe((res) => {
-      this.toastr.success('Changed description', 'Success')
-    },
-    (error) => {
-        this.toastr.error('Error occured')    
-    }
+    this.projectService.update(project).subscribe(
+      (res) => {
+        this.toastr.success('Changed description', 'Success');
+      },
+      (error) => {
+        this.toastr.error(error.error);
+      }
     );
   }
 }

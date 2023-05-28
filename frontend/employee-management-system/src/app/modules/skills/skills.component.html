@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="skills" class="container">
   <h1>Skills List</h1>
 
   <div class="list-container">
@@ -11,8 +11,18 @@
   </div>
 
   <div class="add-skill-container">
-    <input type="text" [(ngModel)]="newSkill.name" placeholder="Enter a new skill" />
-    <input min="1" max="5" type="number"  [(ngModel)]="newSkill.grade" placeholder="Enter the grade" />
+    <input
+      type="text"
+      [(ngModel)]="newSkill.name"
+      placeholder="Enter a new skill"
+    />
+    <input
+      min="1"
+      max="5"
+      type="number"
+      [(ngModel)]="newSkill.grade"
+      placeholder="Enter the grade"
+    />
     <button (click)="addSkill()">Add Skill</button>
   </div>
 </div>
