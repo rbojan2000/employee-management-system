@@ -25,17 +25,18 @@ INSERT INTO skills(grade, name) VALUES (4, 'C#');
 INSERT INTO user_skills(software_engineer_id, skill_id) VALUES (2, 1);
 INSERT INTO user_skills(software_engineer_id, skill_id) VALUES (2, 2);
 
-INSERT INTO permission(description, url, method) VALUES ('Changing profile details.', 'https://localhost:4200/software-engineer', 'PUT');
-INSERT INTO permission(description, url, method) VALUES ('Fetching all projects that the user works on.', 'https://localhost:4200/project/user/{id}', 'GET');
-INSERT INTO permission(description, url, method) VALUES ('Updating the user''s activity description on the project.', 'https://localhost:4200/project', 'PUT');
-INSERT INTO permission(description, url, method) VALUES ('Fetching all user''s skills.', 'https://localhost:4200/skill/user/{id}', 'GET');
-INSERT INTO permission(description, url, method) VALUES ('Creating new skill.', 'https://localhost:4200/skill', 'POST');
+INSERT INTO permission(description) VALUES ('updateEngineerProjectAssignmentDescription');
+INSERT INTO permission(description) VALUES ('findProjectsByUser');
+INSERT INTO permission(description) VALUES ('findSkillsByUser');
+INSERT INTO permission(description) VALUES ('createNewSkill');
+INSERT INTO permission(description) VALUES ('getProfileDetails');
+INSERT INTO permission(description) VALUES ('updateProfileDetails');
 
 INSERT INTO permission_role(permission_id, role_id) VALUES (1, 2);
 INSERT INTO permission_role(permission_id, role_id) VALUES (2, 2);
 INSERT INTO permission_role(permission_id, role_id) VALUES (3, 2);
 INSERT INTO permission_role(permission_id, role_id) VALUES (4, 2);
 INSERT INTO permission_role(permission_id, role_id) VALUES (5, 2);
-INSERT INTO permission_role(permission_id, role_id) VALUES (1, 3);
-INSERT INTO permission_role(permission_id, role_id) VALUES (4, 3);
+INSERT INTO permission_role(permission_id, role_id) VALUES (6, 2);
+INSERT INTO permission_role(permission_id, role_id) VALUES (6, 3);
 INSERT INTO permission_role(permission_id, role_id) VALUES (5, 3);

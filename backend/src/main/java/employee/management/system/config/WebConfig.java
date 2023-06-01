@@ -15,5 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("https://localhost:4200") // Allow requests from this origin
                 .allowedMethods("*") // Allow all HTTP methods
                 .maxAge(3600); // Set the maximum age of preflight requests
+
     }
 }

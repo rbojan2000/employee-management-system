@@ -1,7 +1,5 @@
-import { ObjectId } from 'bson';
 
 export interface User {
-  id: ObjectId | null;
   name: string;
   surname: string;
   re_password: string;

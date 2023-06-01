@@ -4,6 +4,7 @@ import employee.management.system.model.Skill;
 import employee.management.system.model.SoftwareEngineer;
 import employee.management.system.repository.SkillRepository;
 import employee.management.system.repository.SoftwareEngineerRepository;
+import employee.management.system.service.interfaces.PermissionService;
 import employee.management.system.service.interfaces.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,20 @@ public class SkillServiceImpl implements SkillService {
     @Autowired
     SkillRepository skillRepository;
 
+    @Autowired
+    PermissionService permissionService;
+
     @Override
-    public List<Skill> getSkillsForUser(Long userID) {
+    public List<Skill> getSkillsForUser(Long userID) throws Exception {
+        permissionService.checkIfUserHasPermission("findSkillsByUser");
         SoftwareEngineer softwareEngineer = softwareEngineerRepository.findById(userID).get();
         return softwareEngineer.getSkills();
     }
 
     @Override
-    public void addNewSkill(Skill skill, Long userId) {
+    public void addNewSkill(Skill skill, Long userId) throws Exception{
+        permissionService.checkIfUserHasPermission("createNewSkill");
+
         SoftwareEngineer softwareEngineer = softwareEngineerRepository.findById(userId).get();
         List<Skill> newSkills = softwareEngineer.getSkills();
         skillRepository.save(skill);

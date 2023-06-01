@@ -1,17 +1,20 @@
 package employee.management.system.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-// POJO koji implementira Spring Security GrantedAuthority kojim se mogu definisati role u aplikaciji
 @Entity
 @Table(name="role")
 @Getter
 @Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Role implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
@@ -22,6 +25,7 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @Column(name="name")
+    @EqualsAndHashCode.Include
     private String name;
 
     @JsonIgnore

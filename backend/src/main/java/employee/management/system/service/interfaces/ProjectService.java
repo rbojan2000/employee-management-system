@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    List<EngineerProjectAssignment> getProjectForUser(Long userID);
+    List<EngineerProjectAssignment> getProjectForUser(Long userID) throws Exception;
 
-    void UpdateUserDescription(String projectName, String description);
+    void updateUserDescription(String projectName, String description) throws Exception;
 }

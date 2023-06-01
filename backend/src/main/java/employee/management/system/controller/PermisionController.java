@@ -2,7 +2,7 @@ package employee.management.system.controller;
 
 import employee.management.system.dto.ChangePermissionForRoleDTO;
 import employee.management.system.model.Permission;
-import employee.management.system.service.interfaces.PermisionService;
+import employee.management.system.service.interfaces.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +15,7 @@ import java.util.List;
 public class PermisionController {
 
     @Autowired
-    private PermisionService permisionService;
+    private PermissionService permisionService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")

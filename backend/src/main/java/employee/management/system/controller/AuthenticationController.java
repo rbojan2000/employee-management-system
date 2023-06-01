@@ -74,3 +74,4 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
     }
 }
+
