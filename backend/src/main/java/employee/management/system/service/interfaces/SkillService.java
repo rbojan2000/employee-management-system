@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface SkillService {
 
-    List<Skill> getSkillsForUser(Long userID);
+    List<Skill> getSkillsForUser(Long userID) throws Exception;
 
 
-    void addNewSkill(Skill skill, Long userId);
+    void addNewSkill(Skill skill, Long userId) throws Exception;
 }

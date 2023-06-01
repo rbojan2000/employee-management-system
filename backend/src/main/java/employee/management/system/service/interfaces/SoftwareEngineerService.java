@@ -6,7 +6,7 @@ import employee.management.system.dto.UserDTO;
 public interface SoftwareEngineerService {
     SoftwareEngineer registerEngineer(UserDTO userDTO);
 
-    SoftwareEngineer getByID(Long id);
+    SoftwareEngineer getByID(Long id) throws Exception;
 
-    void updateEngineer(SoftwareEngineer softwareEngineer, Long id);
+    void updateEngineer(SoftwareEngineer softwareEngineer, Long id) throws Exception;
 }

@@ -7,6 +7,7 @@ import employee.management.system.model.EngineerProjectAssignmentId;
 import employee.management.system.repository.EngineerProjectAssignmentRepository;
 import employee.management.system.service.interfaces.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,21 +29,24 @@ public class ProjectController {
 
     @GetMapping("/user/{id}")
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<List<EngineerProjectAssignmentDTO>> getProjectForUser(@PathVariable("id") Long id) {
-
-        List<EngineerProjectAssignment> assignmentList = projectService.getProjectForUser(id);
-        List<EngineerProjectAssignmentDTO> dtos = projectMapper.listToDTO(assignmentList);
-
-        return ResponseEntity.ok(dtos);
+    public ResponseEntity<?> getProjectForUser(@PathVariable("id") Long id) throws Exception{
+        try {
+            List<EngineerProjectAssignment> assignmentList = projectService.getProjectForUser(id);
+            return ResponseEntity.ok(projectMapper.listToDTO(assignmentList));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
     }
 
     @PutMapping
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
-    public ResponseEntity<?> updateProjectDescriptionForUser(@RequestBody EngineerProjectAssignmentDTO engineerProjectAssignmentDTO) {
-
-        projectService.UpdateUserDescription(engineerProjectAssignmentDTO.getProjectName(), engineerProjectAssignmentDTO.getDescription());
-        engineerProjectAssignmentRepository.findById(new EngineerProjectAssignmentId());
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> updateProjectDescriptionForUser(@RequestBody EngineerProjectAssignmentDTO engineerProjectAssignmentDTO) throws Exception {
+        try {
+            projectService.updateUserDescription(engineerProjectAssignmentDTO.getProjectName(), engineerProjectAssignmentDTO.getDescription());
+            engineerProjectAssignmentRepository.findById(new EngineerProjectAssignmentId());
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
     }
-
 }

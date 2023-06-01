@@ -10,7 +10,7 @@
     </ul>
   </div>
 
-  <div class="add-skill-container">
+  <div *ngIf="skills" class="add-skill-container">
     <input
       type="text"
       [(ngModel)]="newSkill.name"

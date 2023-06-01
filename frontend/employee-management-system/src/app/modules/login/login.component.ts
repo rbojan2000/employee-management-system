@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class LoginComponent {
   user: User = {
-    id: null,
     name: '',
     surname: '',
     re_password: '',

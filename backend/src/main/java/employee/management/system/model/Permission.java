@@ -24,12 +24,6 @@ public class Permission {
     @Column
     private String description;
 
-    @Column
-    private String url;
-
-    @Column
-    private String method;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "permission_role",
             joinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"),

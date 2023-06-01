@@ -7,11 +7,9 @@ import { ProjectsComponent } from './modules/projects/projects.component';
 import { SkillsComponent } from './modules/skills/skills.component';
 import { AuthGuard } from './guard/auth.guard';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
-import { HelloPageComponent } from './modules/hello-page/hello-page.component';
 import { PermissionsComponent } from './modules/permissions/permissions.component';
 
 const routes: Routes = [
-  { path: '', component: HelloPageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] },

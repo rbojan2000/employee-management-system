@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-
     @Override
     public boolean checkIfEmailExists(String email) {
         if(userRepository.findByEmail(email) == null)
@@ -31,6 +30,4 @@ public class UserServiceImpl implements UserService {
        User user = userRepository.findByEmail(email);
        return user.getSalt();
     }
-
-
 }

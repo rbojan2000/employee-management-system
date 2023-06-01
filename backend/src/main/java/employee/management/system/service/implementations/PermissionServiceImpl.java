@@ -3,21 +3,25 @@ package employee.management.system.service.implementations;
 import employee.management.system.model.Permission;
 import employee.management.system.model.Role;
 import employee.management.system.repository.PermissionRepository;
-import employee.management.system.service.interfaces.PermisionService;
+import employee.management.system.service.interfaces.PermissionService;
 import employee.management.system.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
-
 @Service
-public class PermissionServiceImpl implements PermisionService {
+public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
-    private PermissionRepository permissionRepository;
+    PermissionRepository permissionRepository;
 
     @Autowired
-    private RoleService roleService;
+    RoleService roleService;
+
 
     @Override
     public List<Permission> getAll() {
@@ -25,8 +29,8 @@ public class PermissionServiceImpl implements PermisionService {
     }
 
     @Override
-    public boolean chagePermisionForRole(String permisionId, String roleName) {
-        Permission permission = getPermissionById(permisionId);
+    public boolean chagePermisionForRole(String permissionId, String roleName) {
+        Permission permission = getPermissionById(permissionId);
         Role role = getRoleByName(roleName);
         List<Role> roles = permission.getRoles();
 
@@ -36,6 +40,39 @@ public class PermissionServiceImpl implements PermisionService {
         return true;
     }
 
+    @Override
+    public boolean checkIfUserHasPermission(String permissionName) throws Exception {
+        Permission permission = permissionRepository.findByDescription(permissionName);
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        boolean hasPermission = checkUserPermission(userDetails, permission);
+
+        if (hasPermission) {
+            return true;
+        } else {
+            throw new Exception("Logged user does not have permissions for " + permissionName);
+        }
+    }
+
+    private boolean checkUserPermission(UserDetails userDetails, Permission permission) {
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            String role = authority.getAuthority();
+
+            if (isRoleInPermission(permission, role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isRoleInPermission(Permission permission, String role) {
+        return permission.getRoles().stream().anyMatch(r -> r.getName().equals(role));
+    }
+
     private Permission getPermissionById(String permissionId) {
         Long id = Long.valueOf(permissionId);
         return permissionRepository.findById(id)
@@ -43,11 +80,11 @@ public class PermissionServiceImpl implements PermisionService {
     }
 
     private Role getRoleByName(String roleName) {
-        List<Role> roles = roleService.findByName(roleName);
-        if (roles.isEmpty()) {
+        Role role = roleService.findByName(roleName);
+        if (role == null) {
             throw new IllegalArgumentException("Role not found");
         }
-        return roles.get(0);
+        return role;
     }
 
     private void updateRolesList(Permission permission, Role role, List<Role> roles) {
