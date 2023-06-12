@@ -21,15 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
-
-    private final static Logger logger = LogManager.getLogger(AuthenticationController.class);
 
     @Autowired
     private TokenUtils tokenUtils;
@@ -42,11 +37,10 @@ public class AuthenticationController {
     @Autowired
     private SoftwareEngineerService softwareEngineerService;
 
+
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
-
-        logger.info("success login!");
 
         String salt = userService.getSaltByUserEmail(authenticationRequest.getUsername());
 

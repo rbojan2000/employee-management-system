@@ -1,5 +1,6 @@
 package employee.management.system.service.interfaces;
 
+import employee.management.system.exception.PermissionException;
 import employee.management.system.model.Permission;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public interface PermissionService {
 
     boolean chagePermisionForRole(String permisionId, String roleName);
 
-    boolean checkIfUserHasPermission(String permissionName) throws Exception;
+    boolean checkIfUserHasPermission(String permissionName) throws PermissionException;
 }
 

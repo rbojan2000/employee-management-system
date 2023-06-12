@@ -30,23 +30,15 @@ public class ProjectController {
     @GetMapping("/user/{id}")
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
     public ResponseEntity<?> getProjectForUser(@PathVariable("id") Long id) throws Exception{
-        try {
-            List<EngineerProjectAssignment> assignmentList = projectService.getProjectForUser(id);
-            return ResponseEntity.ok(projectMapper.listToDTO(assignmentList));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        }
+        List<EngineerProjectAssignment> assignmentList = projectService.getProjectForUser(id);
+        return ResponseEntity.ok(projectMapper.listToDTO(assignmentList));
     }
 
     @PutMapping
     @PreAuthorize("hasRole('SOFTWARE_ENGINEER')")
     public ResponseEntity<?> updateProjectDescriptionForUser(@RequestBody EngineerProjectAssignmentDTO engineerProjectAssignmentDTO) throws Exception {
-        try {
-            projectService.updateUserDescription(engineerProjectAssignmentDTO.getProjectName(), engineerProjectAssignmentDTO.getDescription());
-            engineerProjectAssignmentRepository.findById(new EngineerProjectAssignmentId());
-            return ResponseEntity.ok("");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        }
+        projectService.updateUserDescription(engineerProjectAssignmentDTO.getProjectName(), engineerProjectAssignmentDTO.getDescription());
+        engineerProjectAssignmentRepository.findById(new EngineerProjectAssignmentId());
+        return ResponseEntity.ok("");
     }
 }

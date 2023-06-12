@@ -1,5 +1,6 @@
 package employee.management.system.service.implementations;
 
+import employee.management.system.exception.PermissionException;
 import employee.management.system.model.Permission;
 import employee.management.system.model.Role;
 import employee.management.system.repository.PermissionRepository;
@@ -41,7 +42,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public boolean checkIfUserHasPermission(String permissionName) throws Exception {
+    public boolean checkIfUserHasPermission(String permissionName) throws PermissionException {
         Permission permission = permissionRepository.findByDescription(permissionName);
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -51,7 +52,10 @@ public class PermissionServiceImpl implements PermissionService {
         if (hasPermission) {
             return true;
         } else {
-            throw new Exception("Logged user does not have permissions for " + permissionName);
+            PermissionException permissionException = new PermissionException("Logged user does not have permissions for " + permissionName);
+            permissionException.setPermissionName(permissionName);
+            permissionException.setUser(userDetails.getUsername());
+            throw permissionException;
         }
     }
 

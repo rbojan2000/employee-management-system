@@ -1,14 +1,16 @@
 package employee.management.system.security;
 
+import employee.management.system.controller.AuthenticationController;
 import employee.management.system.util.TokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,9 +24,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenUtils tokenUtils;
     private final UserDetailsService userDetailsService;
 
+    private final static Logger logger = LogManager.getLogger(AuthenticationController.class);
+
+
     public TokenAuthenticationFilter(TokenUtils tokenHelper, UserDetailsService userDetailsService) {
         this.tokenUtils = tokenHelper;
         this.userDetailsService = userDetailsService;
+
     }
 
     @Override
@@ -32,7 +38,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String username;
         String authToken = tokenUtils.getToken(request);
 
-        try {
             if (authToken != null) {
                 username = tokenUtils.getUsernameFromToken(authToken);
                 if (username != null) {
@@ -41,13 +46,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                         TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                         authentication.setToken(authToken);
                         SecurityContextHolder.getContext().setAuthentication(authentication);
-                        SecurityContextHolder.getContext().getAuthentication();
                     }
                 }
             }
-        } catch (ExpiredJwtException ex) {
-            LOGGER.debug("Token expired!");
-        }
-        chain.doFilter(request, response);
+            chain.doFilter(request, response);
     }
 }
