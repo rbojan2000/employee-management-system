@@ -1,5 +1,6 @@
 package employee.management.system.service.implementations;
 
+import employee.management.system.exception.PermissionException;
 import employee.management.system.model.Skill;
 import employee.management.system.model.SoftwareEngineer;
 import employee.management.system.repository.SkillRepository;
@@ -24,14 +25,14 @@ public class SkillServiceImpl implements SkillService {
     PermissionService permissionService;
 
     @Override
-    public List<Skill> getSkillsForUser(Long userID) throws Exception {
+    public List<Skill> getSkillsForUser(Long userID) throws PermissionException {
         permissionService.checkIfUserHasPermission("findSkillsByUser");
         SoftwareEngineer softwareEngineer = softwareEngineerRepository.findById(userID).get();
         return softwareEngineer.getSkills();
     }
 
     @Override
-    public void addNewSkill(Skill skill, Long userId) throws Exception{
+    public void addNewSkill(Skill skill, Long userId) throws PermissionException {
         permissionService.checkIfUserHasPermission("createNewSkill");
 
         SoftwareEngineer softwareEngineer = softwareEngineerRepository.findById(userId).get();

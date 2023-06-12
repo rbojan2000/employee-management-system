@@ -1,5 +1,6 @@
 package employee.management.system.service.implementations;
 
+import employee.management.system.exception.PermissionException;
 import employee.management.system.mapper.SoftwareEngineerMapper;
 import employee.management.system.model.Role;
 import employee.management.system.model.SoftwareEngineer;
@@ -60,13 +61,13 @@ public class SoftwareEngineerServiceImpl implements SoftwareEngineerService {
     }
 
     @Override
-    public SoftwareEngineer getByID(Long id) throws Exception {
+    public SoftwareEngineer getByID(Long id) throws PermissionException {
         permissionService.checkIfUserHasPermission("getProfileDetails");
         return softwareEngineerRepository.findById(id).get();
     }
 
     @Override
-    public void updateEngineer(SoftwareEngineer softwareEngineer, Long id) throws Exception {
+    public void updateEngineer(SoftwareEngineer softwareEngineer, Long id) throws PermissionException {
         permissionService.checkIfUserHasPermission("updateProfileDetails");
 
         SoftwareEngineer engineer = softwareEngineerRepository.findById(id).get();

@@ -64,7 +64,6 @@ public class WebSecurityConfig {
 
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.authorizeRequests().requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils,  userDetailsService()), BasicAuthenticationFilter.class);
@@ -73,15 +72,6 @@ public class WebSecurityConfig {
 
         http.authenticationProvider(authenticationProvider());
 
-
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth")
-                .requestMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico",
-                        "/*/*.html", "/*/*.css", "/*/*.js");
-
     }
 }

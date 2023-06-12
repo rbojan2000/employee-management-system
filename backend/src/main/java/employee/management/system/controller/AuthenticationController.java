@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
+
 
     @Autowired
     private TokenUtils tokenUtils;
@@ -36,6 +36,7 @@ public class AuthenticationController {
 
     @Autowired
     private SoftwareEngineerService softwareEngineerService;
+
 
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(

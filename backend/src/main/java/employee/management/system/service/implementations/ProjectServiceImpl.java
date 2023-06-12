@@ -1,5 +1,6 @@
 package employee.management.system.service.implementations;
 
+import employee.management.system.exception.PermissionException;
 import employee.management.system.model.EngineerProjectAssignment;
 import employee.management.system.repository.EngineerProjectAssignmentRepository;
 import employee.management.system.repository.SoftwareEngineerRepository;
@@ -23,13 +24,13 @@ public class ProjectServiceImpl implements ProjectService {
     EngineerProjectAssignmentRepository engineerProjectAssignmentRepository;
 
     @Override
-    public List<EngineerProjectAssignment> getProjectForUser(Long userID) throws Exception {
+    public List<EngineerProjectAssignment> getProjectForUser(Long userID) throws PermissionException {
         permissionService.checkIfUserHasPermission("findProjectsByUser");
         return softwareEngineerRepository.findById(userID).get().getAssignments();
     }
 
     @Override
-    public void updateUserDescription(String projectName, String description) throws Exception {
+    public void updateUserDescription(String projectName, String description) throws PermissionException {
         permissionService.checkIfUserHasPermission("updateEngineerProjectAssignmentDescription");
 
         EngineerProjectAssignment engineerProjectAssignment = engineerProjectAssignmentRepository.findByProject_Name(projectName);
